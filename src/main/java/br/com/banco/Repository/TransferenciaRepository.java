@@ -3,6 +3,7 @@ import br.com.banco.entities.Transferencia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -10,14 +11,14 @@ import java.util.List;
 public interface TransferenciaRepository extends JpaRepository<Transferencia, Long> {
 
     List<Transferencia> findByConta_NomeResponsavel(String nomeResponsavel);
-    List<Transferencia> findByContaId(Long contaId);
+    List<Transferencia> findByContaId(Long contaId);    
     List<Transferencia> findByContaIdAndNomeOperadorTransacao(Long contaId, String nomeOperador);
-    List<Transferencia> findByContaIdAndDataTransferenciaBetween(Long contaId, LocalDateTime dataInicial, LocalDateTime dataFinal);
+    List<Transferencia> findByContaIdAndDataTransferenciaBetween(Long contaId, LocalDate dataInicial, LocalDate dataFinal);
     List<Transferencia> findByNomeOperadorTransacao(String nomeOperador);
-    List<Transferencia> findByDataTransferenciaBetween(LocalDateTime dataInicial, LocalDateTime dataFinal);
+    List<Transferencia> findByDataTransferenciaBetween(LocalDate dataInicial, LocalDate dataFinal);
     List<Transferencia> findByContaIdAndNomeOperadorTransacaoAndDataTransferenciaBetween(
-            Long contaId, String nomeOperador, LocalDateTime dataInicial, LocalDateTime dataFinal
+            Long contaId, String nomeOperador, LocalDate dataInicial, LocalDate dataFinal
     );
 
-    List<Transferencia> findByNomeOperadorTransacaoAndDataTransferenciaBetween(String nomeOperador, LocalDateTime dataInicial, LocalDateTime dataFinal);
+    List<Transferencia> findByNomeOperadorTransacaoAndDataTransferenciaBetween(String nomeOperador, LocalDate  dataInicial, LocalDate dataFinal);
 }

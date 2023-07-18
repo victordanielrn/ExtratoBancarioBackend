@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class TransferenciaDTO {
     private Long id;
-    private LocalDateTime dataTransferencia;
+    private LocalDate dataTransferencia;
     private BigDecimal valor;
     private String tipo;
     private String nomeOperadorTransacao;

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -20,7 +21,7 @@ public class Transferencia {
     private Long id;
 
     @Column(name = "data_transferencia", nullable = false)
-    private LocalDateTime dataTransferencia;
+    private LocalDate dataTransferencia;
 
     @Column(name = "valor", nullable = false)
     private BigDecimal valor;

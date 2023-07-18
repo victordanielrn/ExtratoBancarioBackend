@@ -3,6 +3,7 @@ import br.com.banco.Repository.TransferenciaRepository;
 import br.com.banco.entities.Transferencia;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,13 +14,13 @@ public class TransferenciaService {
     public TransferenciaService(TransferenciaRepository transferenciaRepository) {
         this.transferenciaRepository = transferenciaRepository;
     }
-    public List<Transferencia> listarTransferenciasPorData(LocalDateTime dataInicial, LocalDateTime dataFinal) {
+    public List<Transferencia> listarTransferenciasPorData(LocalDate dataInicial, LocalDate dataFinal) {
         return transferenciaRepository.findByDataTransferenciaBetween(dataInicial, dataFinal);
     }
 
 
 
-    public List<Transferencia> listarTransferencias(String nomeOperador, LocalDateTime dataInicial, LocalDateTime dataFinal) {
+    public List<Transferencia> listarTransferencias(String nomeOperador, LocalDate dataInicial, LocalDate dataFinal) {
         if (nomeOperador != null && dataInicial != null && dataFinal != null) {
             return transferenciaRepository.findByNomeOperadorTransacaoAndDataTransferenciaBetween(nomeOperador, dataInicial, dataFinal);
         } else if (nomeOperador != null && dataInicial == null && dataFinal == null) {

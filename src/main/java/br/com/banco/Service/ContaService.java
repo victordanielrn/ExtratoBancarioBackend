@@ -5,6 +5,7 @@ import br.com.banco.entities.Conta;
 import br.com.banco.entities.Transferencia;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,8 +30,8 @@ public class ContaService {
     public List<Transferencia> listarTransferenciasPorConta(
             Long contaId,
             String nomeOperador,
-            LocalDateTime dataInicial,
-            LocalDateTime dataFinal
+            LocalDate dataInicial,
+            LocalDate dataFinal
     ) {
         if (nomeOperador != null && dataInicial != null && dataFinal != null) {
             return transferenciaRepository.findByContaIdAndNomeOperadorTransacaoAndDataTransferenciaBetween(

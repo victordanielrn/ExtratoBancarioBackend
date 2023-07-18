@@ -8,6 +8,7 @@ import br.com.banco.entities.Transferencia;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,8 +34,8 @@ public class ContaController {
     public List<TransferenciaDTO> listarTransferenciasPorConta(
             @PathVariable Long contaId,
             @RequestParam(required = false) String nomeOperador,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicial,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal
+            @RequestParam(required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataInicial,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataFinal
     ) {
         List<Transferencia> transferencias = contaService.listarTransferenciasPorConta(contaId, nomeOperador, dataInicial, dataFinal);
         return transferencias.stream()
