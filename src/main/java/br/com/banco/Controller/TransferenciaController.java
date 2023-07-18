@@ -1,5 +1,5 @@
 package br.com.banco.Controller;
-import br.com.banco.DTO.ContaDTO;
+
 import br.com.banco.DTO.TransferenciaDTO;
 import br.com.banco.Service.TransferenciaService;
 import br.com.banco.entities.Transferencia;
@@ -21,15 +21,16 @@ public class TransferenciaController {
 
     @GetMapping
     public List<TransferenciaDTO> listarTransferencias(
-            @RequestParam(required = false) String nomeOperador,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicial,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal
     ) {
-        List<Transferencia> transferencias = transferenciaService.listarTransferencias(nomeOperador, dataInicial, dataFinal);
+        List<Transferencia> transferencias = transferenciaService.listarTransferenciasPorData(dataInicial, dataFinal);
         return transferencias.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+
+
 
     private TransferenciaDTO convertToDTO(Transferencia transferencia) {
         TransferenciaDTO dto = new TransferenciaDTO();
@@ -38,13 +39,7 @@ public class TransferenciaController {
         dto.setValor(transferencia.getValor());
         dto.setTipo(transferencia.getTipo());
         dto.setNomeOperadorTransacao(transferencia.getNomeOperadorTransacao());
-
-        ContaDTO contaDTO = new ContaDTO();
-        contaDTO.setId(transferencia.getConta().getId());
-        contaDTO.setNomeResponsavel(transferencia.getConta().getNomeResponsavel());
-
-        dto.setConta(contaDTO);
-
+        dto.setConta(null); // Defina como null para evitar referências circulares
         return dto;
     }
 }

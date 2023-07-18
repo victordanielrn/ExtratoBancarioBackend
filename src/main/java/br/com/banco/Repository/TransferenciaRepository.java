@@ -8,6 +8,8 @@ import java.util.List;
 
 @Repository
 public interface TransferenciaRepository extends JpaRepository<Transferencia, Long> {
+
+    List<Transferencia> findByConta_NomeResponsavel(String nomeResponsavel);
     List<Transferencia> findByContaId(Long contaId);
     List<Transferencia> findByContaIdAndNomeOperadorTransacao(Long contaId, String nomeOperador);
     List<Transferencia> findByContaIdAndDataTransferenciaBetween(Long contaId, LocalDateTime dataInicial, LocalDateTime dataFinal);

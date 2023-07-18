@@ -2,6 +2,7 @@ package br.com.banco.Controller;
 import br.com.banco.DTO.ContaDTO;
 import br.com.banco.DTO.TransferenciaDTO;
 import br.com.banco.Service.ContaService;
+import br.com.banco.Service.TransferenciaService;
 import br.com.banco.entities.Conta;
 import br.com.banco.entities.Transferencia;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 public class ContaController {
     private final ContaService contaService;
 
-    public ContaController(ContaService contaService) {
+    public ContaController(ContaService contaService, TransferenciaService transferenciaService) {
         this.contaService = contaService;
     }
 
@@ -40,6 +41,15 @@ public class ContaController {
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+    @GetMapping("/nome/{nomeResponsavel}/transferencias")
+    public List<TransferenciaDTO> listarTransferenciasPorNomeResponsavel(
+            @PathVariable String nomeResponsavel
+    ) {
+        List<Transferencia> transferencias = contaService.listarTransferenciasPorNomeResponsavel(nomeResponsavel);
+        return transferencias.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 
     private ContaDTO convertToDTO(Conta conta) {
         ContaDTO dto = new ContaDTO();
@@ -55,13 +65,7 @@ public class ContaController {
         dto.setValor(transferencia.getValor());
         dto.setTipo(transferencia.getTipo());
         dto.setNomeOperadorTransacao(transferencia.getNomeOperadorTransacao());
-
-        ContaDTO contaDTO = new ContaDTO();
-        contaDTO.setId(transferencia.getConta().getId());
-        contaDTO.setNomeResponsavel(transferencia.getConta().getNomeResponsavel());
-
-        dto.setConta(contaDTO);
-
+        dto.setConta(null); // Defina como null para evitar referências circulares
         return dto;
     }
 }

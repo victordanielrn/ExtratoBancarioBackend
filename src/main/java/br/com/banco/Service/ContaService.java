@@ -21,6 +21,10 @@ public class ContaService {
     public List<Conta> listarContas() {
         return contaRepository.findAll();
     }
+    public List<Transferencia> listarTransferenciasPorNomeResponsavel(String nomeResponsavel) {
+        return transferenciaRepository.findByConta_NomeResponsavel(nomeResponsavel);
+    }
+
 
     public List<Transferencia> listarTransferenciasPorConta(
             Long contaId,

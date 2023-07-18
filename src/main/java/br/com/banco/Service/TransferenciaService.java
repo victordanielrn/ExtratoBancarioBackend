@@ -13,6 +13,11 @@ public class TransferenciaService {
     public TransferenciaService(TransferenciaRepository transferenciaRepository) {
         this.transferenciaRepository = transferenciaRepository;
     }
+    public List<Transferencia> listarTransferenciasPorData(LocalDateTime dataInicial, LocalDateTime dataFinal) {
+        return transferenciaRepository.findByDataTransferenciaBetween(dataInicial, dataFinal);
+    }
+
+
 
     public List<Transferencia> listarTransferencias(String nomeOperador, LocalDateTime dataInicial, LocalDateTime dataFinal) {
         if (nomeOperador != null && dataInicial != null && dataFinal != null) {
